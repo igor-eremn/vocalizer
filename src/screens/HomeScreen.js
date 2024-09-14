@@ -1,21 +1,28 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
 import Component1 from '../components/SpeechToText';
 import Component2 from '../components/TextToSpeech';
 
 const HomeScreen = () => {
   const [activeComponent, setActiveComponent] = useState('Component1');
+  const [message, setMessage] = useState(''); // State to hold the message
 
   const renderComponent = () => {
     switch (activeComponent) {
       case 'Component1':
-        return <Component1 />;
+        return <Component1 message={message} setMessage={setMessage} />;
       case 'Component2':
-        return <Component2 />;
+        return <Component2 message={message} />;
       default:
         return <Text style={styles.componentText}>Select a component by pressing a button</Text>;
     }
   };
+
+  useEffect(() => {
+    if(activeComponent === 'Component1') {
+      setMessage('');
+    }
+  }, [activeComponent]);
 
   return (
     <SafeAreaView style={styles.container}>

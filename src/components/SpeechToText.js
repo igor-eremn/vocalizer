@@ -1,11 +1,22 @@
 import React from 'react';
-import { Text, StyleSheet, View } from 'react-native';
+import { View, TextInput, StyleSheet, Text, TouchableWithoutFeedback, Keyboard } from 'react-native';
 
-const SpeechToText = () => {
+const SpeechToText = ({ message, setMessage }) => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>This is Speech To Text Component</Text>
-    </View>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={styles.container}>
+        <Text style={styles.headerText}>This is Speech To Text Component</Text>
+        
+        <TextInput
+          style={styles.input}
+          placeholder="Type your message"
+          placeholderTextColor="#888"
+          value={message}
+          onChangeText={setMessage}
+          multiline
+        />
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -19,9 +30,25 @@ const styles = StyleSheet.create({
     backgroundColor: '#1c1c1c',
     padding: 10,
   },
-  text: {
-    fontSize: 24,
+  headerText: {
+    fontSize: 19,
     color: '#ffffff',
+    marginBottom: 20,
+    position: 'absolute',
+    top: 20,
+  },
+  input: {
+    position: 'absolute',
+    top: 250,
+    height: 100,
+    width: '90%',
+    borderColor: '#ffffff',
+    borderWidth: 1,
+    padding: 10,
+    color: '#ffffff',
+    borderRadius: 5,
+    fontSize: 18,
+    textAlignVertical: 'top', // Ensures text starts at the top in multiline
   },
 });
 
